@@ -1,0 +1,39 @@
+{
+  "name": "dynamic-reducer",
+  "version": "0.1.0",
+  "description": "dynamicReducer - reducer for Redux in which you can add or remove child reducers",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "lib",
+    "es",
+    "src"
+  ],
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simprl/dynamic-reducer.git"
+  },
+  "keywords": [
+    "redux",
+    "dynamic",
+    "reducer",
+    "add",
+    "remove"
+  ],
+  "author": "simprl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/simprl/dynamic-reducer/issues"
+  },
+  "homepage": "https://github.com/simprl/dynamic-reducer#readme",
+  "devDependencies": {
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb-base": "latest",
+    "eslint-import-resolver-webpack": "^0.13.0",
+    "eslint-plugin-import": "2.22.1",
+    "rollup": "^2.33.3"
+  }
+}
