@@ -1,6 +1,6 @@
 {
-  "name": "dynamic-reducer",
-  "version": "0.1.0",
+  "name": "@simprl/dynamic-reducer",
+  "version": "0.1.1",
   "description": "dynamicReducer - reducer for Redux in which you can add or remove child reducers",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -35,5 +35,8 @@
     "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-plugin-import": "2.22.1",
     "rollup": "^2.33.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
