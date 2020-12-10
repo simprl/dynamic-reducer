@@ -1,6 +1,6 @@
 import { ADD_REDUCER, REMOVE_REDUCER, SET_STATE } from './actionsTypes';
 
-export default (reducers, staticReducer) => {
+export default (reducers) => {
   const initState = { reducers: {} };
   const dynamicReducer = (state = initState, action) => {
     switch (action.type) {
@@ -8,7 +8,7 @@ export default (reducers, staticReducer) => {
         return action.payload;
       case ADD_REDUCER: {
         const { reducerName, name = null } = action.payload;
-        const stateName = name && reducerName;
+        const stateName = name === null ? reducerName : name;
         const reducer = reducers[reducerName];
         if (!reducer) {
           throw new Error(`No reducer found: ${reducerName}`);
@@ -47,9 +47,6 @@ export default (reducers, staticReducer) => {
             }
           }
           return state;
-        }
-        if (staticReducer) {
-          return staticReducer(state, action);
         }
         return state;
       }

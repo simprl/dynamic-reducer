@@ -1,6 +1,6 @@
 {
   "name": "@simprl/dynamic-reducer",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "dynamicReducer - reducer for Redux in which you can add or remove child reducers",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -38,5 +38,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "redux": "^4.0.5"
   }
 }
