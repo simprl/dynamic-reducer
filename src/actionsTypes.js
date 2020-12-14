@@ -1,3 +1,3 @@
-export const ADD_REDUCER = 'DYN@ADD_REDUCER';
+export const INIT = 'DYN@INIT';
 export const SET_STATE = 'DYN@SET_STATE';
-export const REMOVE_REDUCER = 'DYN@REMOVE_REDUCER';
+export const CLEAR = 'DYN@CLEAR';
