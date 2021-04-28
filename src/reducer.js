@@ -6,7 +6,13 @@ const createDynamicReducer = () => {
   const removeReducer = (space, reducer, dispatch) => {
     const pipe = reducers[space];
     if (pipe) {
-      const newPipe = pipe.filter((item) => item !== reducer);
+      pipe.forEach((item) => {
+        if (item.reducer === reducer) {
+          // eslint-disable-next-line no-param-reassign,no-plusplus
+          item.count--;
+        }
+      });
+      const newPipe = pipe.filter(({ count }) => count > 0);
 
       if (newPipe.length > 0) {
         reducers[space] = newPipe;
@@ -22,12 +28,16 @@ const createDynamicReducer = () => {
   const addReducer = (space, reducer, dispatch) => {
     const pipe = reducers[space];
     if (pipe) {
-      if (!pipe.includes(reducer)) {
-        pipe.push(reducer);
+      const reducerInPipe = pipe.find((item) => reducer === item.reducer);
+      if (reducerInPipe) {
+        // eslint-disable-next-line no-plusplus
+        reducerInPipe.count++;
+      } else {
+        pipe.push({ reducer, count: 1 });
         dispatch({ space, type: INIT });
       }
     } else {
-      reducers[space] = [reducer];
+      reducers[space] = [{ reducer, count: 1 }];
       dispatch({ space, type: INIT });
     }
     return () => removeReducer(space, reducer, dispatch);
@@ -50,7 +60,7 @@ const createDynamicReducer = () => {
           if (reducersPipe) {
             const inState = state[stateName];
             const newInState = reducersPipe.reduce(
-              (itemState, itemReducer) => itemReducer(itemState, action),
+              (itemState, itemReducer) => itemReducer.reducer(itemState, action),
               inState,
             );
             if (inState !== newInState) {
