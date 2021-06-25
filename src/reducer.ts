@@ -1,9 +1,20 @@
 import { INIT, CLEAR, SET_STATE } from './actionsTypes';
+import {Dispatch, Reducer} from 'redux';
+
+export interface PipeItem {
+  reducer: Reducer;
+  count: number;
+}
+export interface Action {
+  type: string;
+  space: string;
+  payload?: unknown;
+}
 
 const createDynamicReducer = () => {
-  const reducers = {};
+  const reducers: Record<string, PipeItem[]> = {};
 
-  const removeReducer = (space, reducer, dispatch) => {
+  const removeReducer = (space: string, reducer: Reducer, dispatch: Dispatch) => {
     const pipe = reducers[space];
     if (pipe) {
       pipe.forEach((item) => {
@@ -25,7 +36,7 @@ const createDynamicReducer = () => {
     return false;
   };
 
-  const addReducer = (space, reducer, dispatch) => {
+  const addReducer = (space: string, reducer: Reducer, dispatch: Dispatch) => {
     const pipe = reducers[space];
     if (pipe) {
       const reducerInPipe = pipe.find((item) => reducer === item.reducer);
@@ -43,9 +54,9 @@ const createDynamicReducer = () => {
     return () => removeReducer(space, reducer, dispatch);
   };
 
-  const initState = {};
+  const initState: Record<string, unknown> = {};
 
-  const reducer = (state = initState, action) => {
+  const reducer = (state = initState, action: Action) => {
     switch (action.type) {
       case SET_STATE:
         return action.payload;

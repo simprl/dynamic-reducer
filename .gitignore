@@ -2,6 +2,8 @@
 *.log
 node_modules
 lib
+dts
+out-tsc
 es
 .idea
 .yarn
