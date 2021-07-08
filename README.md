@@ -1,53 +1,84 @@
 # dynamic-reducer
+Add reducer to the store when component mount
+and remove reducer from the store when component unmount
+## Usage
+```jsx
+const Container = () => {
+    const { dispatch, useReducer } = useStore()
 
-# Usage
-Create store with dynamic reducer:
+    useReducer('books', booksReducer)
+
+    return <button onClick={() => dispatch({ space: 'book', type: 'ADD_BOOK' })} >
+        add book
+    </button>
+}
+```
+## Install
+Modules 'react' and 'redux' should be installed.
+
+Run NPM command:
+
+npm i dynamic-reducer
+
+## Setup
+### 1.a. Create store with dynamic reducer:
 ```js
 import { createStore } from 'redux';
 import { reducer as dynamicReducer } from '@simprl/dynamic-reducer';
-import { reducer as entity } from './ducks/entity';
-import { reducer as list } from './ducks/entity';
 
 const { reducer, addReducer } = dynamicReducer()
 const store = createStore(reducer)
-store.addReducer = addReducer
-```
 
-Or add the dynamic reducer to the store with static reducers:
+const exStore = {
+    ...store,
+    useReducer: (name, reducer) => {
+        useEffect(
+            () => addReducer(name, reducer, store.dispatch),
+            [ name, reducer ]
+        );
+    },
+}
+```
+### 1.b. Attach to the static reducers:
+If your project has static reducers, you can keep they
+and add the dynamic reducer to the store with static reducers:
 ```js
 import { createStore, combineReducers } from 'redux';
 import { reducer as createDynamicReducer } from '@simprl/dynamic-reducer';
-import { reducer as entity } from './ducks/entity';
-import { reducer as list } from './ducks/entity';
-import staticReducer1 from './ducks/staticReducer1';
+import reducer1 from './ducks/reducer1';
+import reducer2 from './ducks/reducer2';
 
-const { reducer: dynamicReducer, addReducer } = createDynamicReducer()
+const { reducer: dynamic, addReducer } = createDynamicReducer()
 const store = createStore(combineReducers({
-  staticReducer1,
-  dynamicReducer,
+    reducer1,
+    reducer2,
+    dynamic,
 }))
+
+const exStore = {
+    ...store,
+    useReducer: (name, reducer) => {
+        useEffect(
+            () => addReducer(name, reducer, store.dispatch),
+            [ name, reducer ]
+        );
+    },
+}
 ```
 
-You can write a React hook for control redux reducers:
+### 2. Set exStore to context provider
+You can use Provider from 'react-redux' or create your own context
+#### Use provider from 'react-redux'
 ```jsx
-import { useEffect } from 'react';
-import { actions as dynamicReducerActions } from '@simprl/dynamic-reducer';
-
-export const getUseReducer = ({ addReducer, dispatch }) => (name, reducer) => {
-  useEffect(
-    () => addReducer(name, reducer, dispatch),
-    [ name, reducer ]
-  );
+const App = () => {
+    return <Provider store={exStore} >
+        <Container />
+    </Provider>
 }
-
-
-const useReducer = getUseReducer(store);
-
-const Component = () => {
-    useReducer('books', booksReducer) // create reducer on mount and remove reducer on unmount
-    return <button
-        onClick={() => dispatch({ space: 'book', type: 'ADD_BOOK' })}
-    >add book</button>
-}
-
 ```
+### 3. Take hook useReducer from hook useStore
+```jsx
+const { dispatch, useReducer } = useStore()
+useReducer('books', booksReducer)
+```
+
