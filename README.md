@@ -1,7 +1,8 @@
-# dynamic-reducer
+# Redux dynamic reducer
 Add reducer to the store when component mount
 and remove reducer from the store when component unmount
 ## Usage
+Example with **hook** **useReducer** :
 ```jsx
 const Container = () => {
     const { dispatch, useReducer } = useStore()
