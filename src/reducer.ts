@@ -5,10 +5,10 @@ export interface PipeItem {
   reducer: Reducer;
   count: number;
 }
-export interface Action {
+export interface Action<TPayload = unknown> {
   type: string;
   space: string;
-  payload?: unknown;
+  payload?: TPayload;
 }
 
 const createDynamicReducer = () => {
