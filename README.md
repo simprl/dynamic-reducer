@@ -19,7 +19,11 @@ Modules 'react' and 'redux' should be installed.
 
 Run NPM command:
 
-npm i dynamic-reducer
+npm i @simprl/dynamic-reducer
+
+Or yarn:
+
+yarn add @simprl/dynamic-reducer
 
 ## Setup
 ### 1.a. Create store with dynamic reducer:
