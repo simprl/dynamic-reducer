@@ -11,7 +11,9 @@
     "dts"
   ],
   "scripts": {
-    "build": "tsc && rollup -c rollup.config.js"
+    "build": "tsc && rollup -c rollup.config.js",
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -32,11 +34,18 @@
   },
   "homepage": "https://github.com/simprl/dynamic-reducer#readme",
   "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-typescript": "^7.15.0",
+    "@types/jest": "^27.0.1",
     "@types/redux": "^3.6.0",
+    "babel-jest": "^27.0.6",
     "eslint": "^7.14.0",
     "eslint-config-airbnb-base": "latest",
     "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-plugin-import": "2.22.1",
+    "jest": "^27.0.6",
+    "redux": "^4.1.1",
     "rollup": "^2.33.3",
     "typescript": "^4.3.4"
   },

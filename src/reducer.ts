@@ -10,6 +10,7 @@ export interface Action<TPayload = unknown> {
   space: string;
   payload?: TPayload;
 }
+export type TState = Record<string, unknown>;
 
 const createDynamicReducer = () => {
   const reducers: Record<string, PipeItem[]> = {};
@@ -54,12 +55,12 @@ const createDynamicReducer = () => {
     return () => removeReducer(space, reducer, dispatch);
   };
 
-  const initState: Record<string, unknown> = {};
+  const initState: TState = {};
 
-  const reducer = (state = initState, action: Action) => {
+  const reducer: Reducer<TState, Action> = (state = initState, action) => {
     switch (action.type) {
       case SET_STATE:
-        return action.payload;
+        return action.payload as TState;
       case CLEAR: {
         const { [action.space]: delState, ...otherState } = state;
         return delState ? otherState : state;
