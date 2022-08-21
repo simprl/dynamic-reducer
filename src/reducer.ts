@@ -52,7 +52,9 @@ const createDynamicReducer = () => {
       reducers[space] = [{ reducer, count: 1 }];
       dispatch({ space, type: INIT });
     }
-    return () => removeReducer(space, reducer, dispatch);
+    return () => {
+      removeReducer(space, reducer, dispatch);
+    }
   };
 
   const initState: TState = {};
