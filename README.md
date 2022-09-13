@@ -1,6 +1,10 @@
 # Redux dynamic reducer
 Add reducer to the store when component mount
 and remove reducer from the store when component unmount
+
+For more information read this article:
+**[Put a Soul into a React-Redux Project](https://dev.to/simprl/adding-a-soul-into-a-react-redux-project-524b)**
+
 ## Usage
 Example with **hook** **useReducer** :
 ```jsx
